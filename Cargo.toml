@@ -7,7 +7,7 @@ license = "MIT"
 repository = "https://github.com/BlackMamba360/rusty-matrix.git"
 
 [[bin]]
-name = "run"
+name = "rusty-matrix"
 path = "src/bin/run.rs"
 
 [dependencies]
