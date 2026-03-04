@@ -3,8 +3,7 @@ name = "rusty_matrix"
 version = "0.1.0"
 edition = "2024"
 description = "A Matrix-like terminal screensaver written in Rust"
-license = "MIT"
-repository = "https://github.com/BlackMamba360/rusty-matrix.git"
+license = "GPL-3"
 
 [[bin]]
 name = "rusty-matrix"
