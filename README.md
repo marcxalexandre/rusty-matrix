@@ -10,6 +10,8 @@ Inspired by [cmatrix](https://github.com/abishekvashok/cmatrix).
 - Adjustable speed
 - Interactive controls (change color and speed at runtime)
 
+![Example GIF](./docs/example.gif)
+
 ### Options
 
 | Option        | Description                                                       | Default |
