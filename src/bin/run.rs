@@ -63,7 +63,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let event_rx = event::init_event_handler(Duration::from_millis(100));
 
     loop {
-        counter = (counter + 1) % 4;
+        counter = (counter + 1) % 5;
 
         if let Some(event) = event_rx.try_recv().ok() {
             match event {
@@ -96,7 +96,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             if let Some(proc) = ColumnProcessor::from_column(
                 state, &mut matrix, rows as usize, cols as usize, counter, &mut rng,
             ) {
-                let _: Vec<_> = proc.collect();
+                for _ in proc {}
             }
         }
 

@@ -59,6 +59,15 @@ impl<'a, R: Rng> ColumnProcessor<'a, R> {
                 ColumnSegment::spawn(self.column.col_idx, self.rows as TermCoord, self.rng);
         }
     }
+
+    fn skip_whitespaces(&mut self, i: &mut usize) {
+        while *i < self.rows {
+            match self.matrix[self.cols * *i + self.column.index()] {
+                MatrixCell::Null | MatrixCell::Space => *i += 1,
+                _ => break
+            }
+        }
+    }
 }
 
 impl<'a, R: Rng> Iterator for ColumnProcessor<'a, R> {
@@ -73,21 +82,16 @@ impl<'a, R: Rng> Iterator for ColumnProcessor<'a, R> {
                 Some(())
             }
 
-            ProcState::Skipping(i) => {
+            ProcState::Skipping(mut i) => {
                 // Skipping spaces until the next continuous segment
+                self.skip_whitespaces(&mut i);
+
                 if i < self.rows {
-                    match self.matrix[self.cols * i + x] {
-                        MatrixCell::Null | MatrixCell::Space => {
-                            self.state = ProcState::Skipping(i + 1)
-                        }
-                        _ => {
-                            self.state = ProcState::InSegment {
-                                i,
-                                segment_start: i,
-                                segment_len: 0,
-                            }
-                        }
-                    }
+                    self.state = ProcState::InSegment {
+                        i,
+                        segment_start: i,
+                        segment_len: 0
+                    };
                     Some(())
                 } else {
                     None
